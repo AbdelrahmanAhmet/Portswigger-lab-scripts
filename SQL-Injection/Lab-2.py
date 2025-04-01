@@ -1,3 +1,5 @@
+#Lab: SQL injection vulnerability allowing login bypass
+
 import requests
 import urllib3
 import sys
@@ -6,7 +8,7 @@ from bs4 import BeautifulSoup
 #Disable warning
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-#Making request go through the proxy
+#Making request go through the proxy for debugging
 proxy = {'http' : 'http://127.0.0.1:8080' , 'https' : 'http://127.0.0.1:8080'}
 
 

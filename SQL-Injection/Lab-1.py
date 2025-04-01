@@ -1,3 +1,5 @@
+#Lab: SQL injection vulnerability in WHERE clause allowing retrieval of hidden data
+
 import requests
 import sys
 import urllib3
@@ -6,7 +8,7 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-#Making requests go through the proxy
+#Making requests go through the proxy for debugging
 proxy = {'http': 'http://127.0.0.1:8080', 'https' : "http://127.0.0.1:8080"}
 
 #Exploit Function

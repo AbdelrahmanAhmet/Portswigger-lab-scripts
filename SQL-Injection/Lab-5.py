@@ -1,3 +1,5 @@
+#Lab: SQL injection attack, listing the database contents on non-Oracle databases
+
 import requests
 import sys
 import urllib3
