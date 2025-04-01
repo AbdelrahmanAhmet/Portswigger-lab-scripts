@@ -13,7 +13,7 @@ proxy = {'http': 'http://127.0.0.1:8080', 'https' : "http://127.0.0.1:8080"}
 def exploit_executed(url, payload):
     uri = "/filter?category="
     request = requests.get(url + uri + payload, verify=False, proxies=proxy)
-    #An item that only exists if exploit was successful
+    #An item that only exists if exploit was successful (If this doesn't exist in your lab, change it)
     if "Adult Space Hopper" in request.text:
         return True
     else:
