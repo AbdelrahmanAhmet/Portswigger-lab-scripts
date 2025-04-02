@@ -62,7 +62,6 @@ def get_final_res(url, middle_part):
 
 #Getting the administrator user's password
 def get_administrator_creds(res):
-    request = requests
     soup = BeautifulSoup(res, 'html.parser')
     admin_password = soup.body.find(string="administrator").parent.findNext('td').contents[0]
     return admin_password
